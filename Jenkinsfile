@@ -26,8 +26,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'go mod download'
-                sh 'go build -v ./...'
+                sh 'mvn clean package'
             }
         }
 
@@ -38,13 +37,14 @@ pipeline {
                 }
             }
             steps {
-                sh 'go test -v ./...'
+                sh 'mvn clean test'
             }
         }
 
         stage('Build image') {
             steps {
-              sh ('docker build -t olimazimov/hw8_java_sample:${TAG} .')
+            //   sh ('docker build -t olimazimov/hw8_java_sample:${TAG} .')
+              sh ('docker build -t java-sample:${TAG} .')
             }
         }
 
