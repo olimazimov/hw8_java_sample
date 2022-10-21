@@ -18,7 +18,7 @@ pipeline {
 
     // setup tools
     tools {
-        go '1.19'
+        go 'Go'
         git 'Default'
     }
 
