@@ -58,7 +58,8 @@ pipeline {
 
             steps{
                withCredentials([usernamePassword(credentialsId: 'userTestID', passwordVariable: 'userpass', usernameVariable: 'userkey')]) {
-                    
+                    sh ('echo ${dockerHubUser}')
+                    sh ('echo ${dockerHubPassword}')
                     sh('docker login -u ${dockerHubUser} -p ${dockerHubPassword}')
                     sh('docker push olimazimov/hw8_java_sample:${TAG}')
                 }
