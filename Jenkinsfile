@@ -43,7 +43,7 @@ pipeline {
 
         stage('Build image') {
             steps {
-              sh ('docker build -t rozikovp/go-sample:${TAG} .')
+              sh ('docker build -t olimazimov/go-sample:${TAG} .')
             }
         }
 
@@ -55,9 +55,9 @@ pipeline {
             }
 
             steps{
-               withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+               withCredentials([usernamePassword(credentialsId: 'userTestID', passwordVariable: 'userpass', usernameVariable: 'userkey')]) {
                     sh('docker login -u ${dockerHubUser} -p ${dockerHubPassword}')
-                    sh('docker push rozikovp/go-sample:${TAG}')
+                    sh('docker push olimazimov/go-sample:${TAG}')
                 }
             }
         }
@@ -70,8 +70,8 @@ pipeline {
             }
 
             steps {
-                sh("git config user.name 'Jenkins'")
-                sh("git config user.email 'jenkins@mycompany.com'")
+                sh("git config user.name 'olimazimov'")
+                sh("git config user.email 'olim.azimov@gmail.com'")
 
                 withCredentials([gitUsernamePassword(credentialsId: 'github-parviz-token',gitToolName: 'git-tool')]) {
                         // remove old tag
