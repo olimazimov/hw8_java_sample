@@ -24,23 +24,23 @@ pipeline {
 
 
     stages {
-        // stage('Build') {
-        //     steps {
-        //         sh 'go mod download'
-        //         sh 'go build -v ./...'
-        //     }
-        // }
+        stage('Build') {
+            steps {
+                sh 'go mod download'
+                sh 'go build -v ./...'
+            }
+        }
 
-        // stage('Test') {
-        //     when {
-        //         expression {
-        //             return params.SKIP_TEST == false;
-        //         }
-        //     }
-        //     steps {
-        //         sh 'go test -v ./...'
-        //     }
-        // }
+        stage('Test') {
+            when {
+                expression {
+                    return params.SKIP_TEST == false;
+                }
+            }
+            steps {
+                sh 'go test -v ./...'
+            }
+        }
 
         stage('Build image') {
             steps {
@@ -57,6 +57,7 @@ pipeline {
 
             steps{
                withCredentials([usernamePassword(credentialsId: 'userTestID', passwordVariable: 'userpass', usernameVariable: 'userkey')]) {
+                    
                     sh('docker login -u ${dockerHubUser} -p ${dockerHubPassword}')
                     sh('docker push olimazimov/go-sample:${TAG}')
                 }
@@ -70,19 +71,19 @@ pipeline {
                 }
             }
 
-            steps {
-                sh("git config user.name 'olimazimov'")
-                sh("git config user.email 'olim.azimov@gmail.com'")
+            // steps {
+            //     sh("git config user.name 'olimazimov'")
+            //     sh("git config user.email 'olim.azimov@gmail.com'")
 
-                withCredentials([gitUsernamePassword(credentialsId: 'github-parviz-token',gitToolName: 'git-tool')]) {
-                        // remove old tag
-                        sh('git push origin :refs/tags/${TAG}')
-                        // update tag
-                        sh('git tag -f ${TAG}')
-                        // push
-                        sh('git push origin --tags')
-                }
-            }
+            //     withCredentials([gitUsernamePassword(credentialsId: 'github-parviz-token',gitToolName: 'git-tool')]) {
+            //             // remove old tag
+            //             sh('git push origin :refs/tags/${TAG}')
+            //             // update tag
+            //             sh('git tag -f ${TAG}')
+            //             // push
+            //             sh('git push origin --tags')
+            //     }
+            // }
 
         }
     }
