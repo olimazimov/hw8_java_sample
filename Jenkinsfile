@@ -18,7 +18,8 @@ pipeline {
 
     // setup tools
     tools {
-        go 'Go'
+        // go 'Go'
+        maven 'Maven_3.8.6'
         git 'Default'
     }
 
