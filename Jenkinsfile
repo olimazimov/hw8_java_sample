@@ -66,12 +66,12 @@ pipeline {
             // }
 
                steps  {
-        withDockerRegistry([ credentialsId: "dockerhubaccount", url: "" ]) {
-        dockerImage.push()
+                        withDockerRegistry([ credentialsId: "dockerhubaccount", url: "" ]) {
+                        dockerImage.push()
         }
         }
         }
-        
+
         stage("Push tag to git") {
             when {
                 expression {
