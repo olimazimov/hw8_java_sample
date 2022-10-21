@@ -17,11 +17,11 @@ pipeline {
     }
 
     // setup tools
-    // tools {
-    //     go 'go_1.19'
-    //     git 'Default'
-    // }
-       tools { go 'Default' }
+    tools {
+        go 'go_1.19'
+        git 'Default'
+    }
+
 
     stages {
         stage('Build') {
