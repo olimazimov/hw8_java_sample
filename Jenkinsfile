@@ -24,23 +24,23 @@ pipeline {
 
 
     stages {
-        stage('Build') {
-            steps {
-                sh 'go mod download'
-                sh 'go build -v ./...'
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         sh 'go mod download'
+        //         sh 'go build -v ./...'
+        //     }
+        // }
 
-        stage('Test') {
-            when {
-                expression {
-                    return params.SKIP_TEST == false;
-                }
-            }
-            steps {
-                sh 'go test -v ./...'
-            }
-        }
+        // stage('Test') {
+        //     when {
+        //         expression {
+        //             return params.SKIP_TEST == false;
+        //         }
+        //     }
+        //     steps {
+        //         sh 'go test -v ./...'
+        //     }
+        // }
 
         stage('Build image') {
             steps {
