@@ -44,7 +44,7 @@ pipeline {
 
         stage('Build image') {
             steps {
-              sh ('docker build -t olimazimov/go-sample:${TAG} .')
+              sh ('docker build -t olimazimov/hw8_java_sample:${TAG} .')
             }
         }
 
@@ -59,7 +59,7 @@ pipeline {
                withCredentials([usernamePassword(credentialsId: 'userTestID', passwordVariable: 'userpass', usernameVariable: 'userkey')]) {
                     
                     sh('docker login -u ${dockerHubUser} -p ${dockerHubPassword}')
-                    sh('docker push olimazimov/go-sample:${TAG}')
+                    sh('docker push olimazimov/hw8_java_sample:${TAG}')
                 }
             }
         }
@@ -71,19 +71,19 @@ pipeline {
                 }
             }
 
-            // steps {
-            //     sh("git config user.name 'olimazimov'")
-            //     sh("git config user.email 'olim.azimov@gmail.com'")
+            steps {
+                sh("git config user.name 'olimazimov'")
+                sh("git config user.email 'olim.azimov@gmail.com'")
 
-            //     withCredentials([gitUsernamePassword(credentialsId: 'github-parviz-token',gitToolName: 'git-tool')]) {
-            //             // remove old tag
-            //             sh('git push origin :refs/tags/${TAG}')
-            //             // update tag
-            //             sh('git tag -f ${TAG}')
-            //             // push
-            //             sh('git push origin --tags')
-            //     }
-            // }
+                withCredentials([gitUsernamePassword(credentialsId: 'github-parviz-token',gitToolName: 'git-tool')]) {
+                        // remove old tag
+                        sh('git push origin :refs/tags/${TAG}')
+                        // update tag
+                        sh('git tag -f ${TAG}')
+                        // push
+                        sh('git push origin --tags')
+                }
+            }
 
         }
     }
