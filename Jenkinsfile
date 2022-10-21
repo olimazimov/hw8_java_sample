@@ -21,8 +21,8 @@ pipeline {
     //     go 'go_1.19'
     //     git 'Default'
     // }
-       tools { go '1.19' }
-       
+       tools { go 'Default' }
+
     stages {
         stage('Build') {
             steps {
