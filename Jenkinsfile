@@ -4,9 +4,9 @@ pipeline {
 
     triggers {
         // cron for trigger pipiline
-        cron('H */2 * * *')
+        cron('0 5 * * *')
         // cron for polling github as we can not use github webhook
-        pollSCM('H/5 * * * *')
+        // pollSCM('H/5 * * * *')
     }
 
     // decalre parameters
@@ -44,7 +44,6 @@ pipeline {
 
         stage('Build image') {
             steps {
-            //   sh ('docker build -t olimazimov/hw8_java_sample:${TAG} .')
               sh ('docker build -t java-sample:${TAG} .')
             }
         }
