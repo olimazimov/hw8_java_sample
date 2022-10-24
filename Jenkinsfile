@@ -65,27 +65,27 @@ pipeline {
 
         }
 
-        stage("Push tag to git") {
-            when {
-                expression {
-                    return params.SKIP_PUBLISH_IMAGE == false;
-                }
-            }
+        // stage("Push tag to git") {
+        //     when {
+        //         expression {
+        //             return params.SKIP_PUBLISH_IMAGE == false;
+        //         }
+        //     }
 
-            steps {
-                sh("git config user.name 'olimazimov'")
-                sh("git config user.email 'olim.azimov@gmail.com'")
+        //     steps {
+        //         sh("git config user.name 'olimazimov'")
+        //         sh("git config user.email 'olim.azimov@gmail.com'")
 
-                withCredentials([gitUsernamePassword(credentialsId: 'github-parviz-token',gitToolName: 'git-tool')]) {
-                        // remove old tag
-                        sh('git push origin :refs/tags/${TAG}')
-                        // update tag
-                        sh('git tag -f ${TAG}')
-                        // push
-                        sh('git push origin --tags')
-                }
-            }
+        //         withCredentials([gitUsernamePassword(credentialsId: 'github-token',gitToolName: 'git-tool')]) {
+        //                 // remove old tag
+        //                 sh('git push origin :refs/tags/${TAG}')
+        //                 // update tag
+        //                 sh('git tag -f ${TAG}')
+        //                 // push
+        //                 sh('git push origin --tags')
+        //         }
+        //     }
 
-        }
+        // }
     }
 }
