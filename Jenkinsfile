@@ -3,10 +3,8 @@ pipeline {
     agent any
 
     triggers {
-        // cron for trigger pipiline
         cron('0 5 * * *')
-        // cron for polling github as we can not use github webhook
-        // pollSCM('H/5 * * * *')
+
     }
 
     // decalre parameters
@@ -57,8 +55,8 @@ pipeline {
 
             steps{
                withCredentials([usernamePassword(credentialsId: 'userTestID', passwordVariable: 'userpass', usernameVariable: 'userkey')]) {
-                    sh ('echo ${dockerHubUser}')
-                    sh ('echo ${dockerHubPassword}')
+                    //sh ('echo ${dockerHubUser}')
+                    // sh ('echo ${dockerHubPassword}')
                     sh('docker login -u ${dockerHubUser} -p ${dockerHubPassword}')
                     sh('docker push olimazimov/hw8_java_sample:${TAG}')
                 }
